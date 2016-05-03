@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script type="text/javascript" src="src/jquery.js"></script>
+        <script type="text/javascript" src="bundle.js"></script>
+
+        <link rel="stylesheet" href="css/bootstrap.css" />
+    </head>
+
+    <div id="grid"></div>
+    <div id="controls">
+        <div class="btn-group">
+            <div class="btn btn-default" data-action="setStart">Set Start Point</div>
+            <div class="btn btn-default" data-action="setEnd">Set End Point</div>
+            <div class="btn btn-default" data-action="setWalls">Set Walls</div>
+            <div class="btn btn-default" data-action="tripleTravelTime">Triple Travel Time</div>
+            <div class="btn btn-info" id="showSetSpeed">Change Speed</div>
+            <div class="btn btn-success" id="run">Run</div>
+            <div class="btn btn-success" id="step">Run One Step</div>
+            <div class="btn btn-danger" id="stop">Stop</div>
+        </div>
+
+        <br />
+
+        <div id="speed-form" class="control-input">
+            <form class="form-inline">
+                <input class="form-control" id="speedInput" value="300"/>
+                <div id="setSpeed" class="btn btn-success">Set Speed</div>
+            </form>
+        </div>
+    </div>
+</html>
