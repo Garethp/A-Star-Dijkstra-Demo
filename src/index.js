@@ -1,4 +1,5 @@
 require("../less/index.less");
+
 import aStarAlgorithm from './aStar';
 import gridClass from './grid';
 
@@ -7,10 +8,23 @@ var grid = new gridClass(10);
 var demonstrationSpeed = 300;
 var stop = false;
 var wH = 100;
+var debug = false;
 
 var updateGrid = function () {
     updateGridOnScreen(grid.getRows(), $("#grid"));
 };
+
+function toggleDebug() {
+    if (debug) {
+        debug = false;
+        aStar.setDelay(false);
+    } else {
+        debug = true;
+        aStar.setDelay(true);
+    }
+
+    updateGrid();
+}
 
 var aStar = new aStarAlgorithm(grid, demonstrationSpeed, updateGrid);
 
@@ -91,7 +105,7 @@ function updateGridOnScreen(grid, $container) {
             </div>`);
 
             //If we have the value set, let's show it
-            if (cell.distanceTraveled) {
+            if (cell.distanceTraveled && debug) {
                 $cell.find('.distanceTraveled').text(`Traveled: ${cell.distanceTraveled}`);
                 $cell.find('.distanceLeft').text(`Left: ${cell.distanceLeft}`);
                 $cell.find('.total').text(`Total: ${cell.estimatedTotalDistance}`);
@@ -103,6 +117,11 @@ function updateGridOnScreen(grid, $container) {
             //Add our extra classes
             for (var cellClass of cell.classes) {
                 $cell.addClass(cellClass);
+            }
+
+            //If we're not in debug mode, hide a certain class
+            if (!debug) {
+                $cell.removeClass('neighbor');
             }
 
             //Add the cell to the row
@@ -146,6 +165,10 @@ function bindControls() {
     
     $("#showSetSpeed").on('click', function () {
         $("#speed-form").toggle();
+    });
+
+    $("#toggleDebug").on('click', function () {
+       toggleDebug();
     });
 
     $("#setSpeed").on('click', function () {

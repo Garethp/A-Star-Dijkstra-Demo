@@ -2,6 +2,7 @@ export default class {
     constructor(grid, speed, updateHook) {
         this.grid = grid;
         this.speed = speed;
+        this.delay = false;
 
         this.clearData();
         this.updateHook = updateHook;
@@ -22,6 +23,10 @@ export default class {
                 cell.estimatedTotalDistance = false;
             }
         }
+    }
+
+    setDelay(delay) {
+        this.delay = delay;
     }
 
     setSpeed(speed) {
@@ -110,8 +115,13 @@ export default class {
             this.path = check;
             this.finished();
         } else if (!runOnceOnly) {
-            //There's more nodes to check and we haven't found the exit
-            window.setTimeout(this.runStep, this.speed);
+
+            if (this.delay) {
+                //There's more nodes to check and we haven't found the exit
+                window.setTimeout(this.runStep, this.speed);
+            } else {
+                this.runStep();
+            }
         }
 
         this.updateHook();
@@ -129,7 +139,7 @@ export default class {
                 return;
             }
 
-            if (openList[index].estimatedTotalDistance < openList[lowestIndex].estimatedTotalDistance) {
+            if (value.estimatedTotalDistance < openList[lowestIndex].estimatedTotalDistance) {
                 lowestIndex = index;
             }
         });
