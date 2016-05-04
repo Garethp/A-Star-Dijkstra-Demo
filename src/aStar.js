@@ -124,7 +124,9 @@ export default class {
             }
         }
 
-        this.updateHook();
+        if (this.delay) {
+            this.updateHook();
+        }
     };
 
     step() {
@@ -141,6 +143,13 @@ export default class {
 
             if (value.estimatedTotalDistance < openList[lowestIndex].estimatedTotalDistance) {
                 lowestIndex = index;
+                return;
+            }
+
+            if (value.estimatedTotalDistance == openList[lowestIndex].estimatedTotalDistance
+                && value.distanceLeft < openList[lowestIndex].distanceLeft) {
+                lowestIndex = index;
+                return;
             }
         });
 

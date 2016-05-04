@@ -5,7 +5,7 @@ import gridClass from './grid';
 
 var currentAction = false;
 var grid = new gridClass(10);
-var demonstrationSpeed = 300;
+var demonstrationSpeed = 100;
 var stop = false;
 var wH = 100;
 var debug = false;
@@ -29,6 +29,8 @@ function toggleDebug() {
 var aStar = new aStarAlgorithm(grid, demonstrationSpeed, updateGrid);
 
 $(document).ready(function () {
+    $("#speedInput").val(demonstrationSpeed);
+
     var $gridContainer = $("#grid");
 
     //On clicking cells, perform our actions
