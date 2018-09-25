@@ -12,9 +12,12 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
-    "less-loader": "^2.2.2",
+    "less-loader": "^2.2.3",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "less": "^3.8.1"
   }
 }
