@@ -1,22 +1,37 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
+
 module.exports = {
-    entry: [
-        "./src/index.js",
-        'webpack-dev-server/client?http://localhost:8080'
+  entry: ["./src/index.js"],
+  output: {
+    path: path.resolve(__dirname, "./dist"),
+    filename: "bundle.js",
+  },
+  devServer: {
+    historyApiFallback: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      { test: /\.less$/, use: ["style-loader", "css-loader", "less-loader"] },
     ],
-    output: {
-        path: __dirname,
-        filename: "bundle.js"
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.js$/, exclude: /node_modules/,
-                loader: "babel-loader",
-                query: {
-                    presets: ['es2015', 'react', 'stage-0']
-                }
-            },
-            { test: /\.less$/, loader: "style-loader!css-loader!less-loader" },
-        ]
-    }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      inject: true,
+      filename: "index.html",
+    }),
+    new MiniCssExtractPlugin(),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+    }),
+  ],
+  mode: "development",
 };
